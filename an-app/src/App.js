@@ -1,32 +1,55 @@
-import logo from './logo.svg';
 import './App.css';
 import Form from './Form';
+import User from './User';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const initialValues = {
-  name: '',
+  username: '',
   email: '',
   password: '',
   termsofservice: false,
 }
 const initialErrors = {
-  name: '',
+  username: '',
   email: '',
   password: '',
 }
 
-const initialUsers = []
 const initialDisabled = true
 
 
 
 function App() {
-  const [users, setUsers] = useState(initialUsers)
+  const [users, setUsers] = useState([])
   const [formValues, setFormValues] = useState(initialValues)
   const [formErrors, setFormErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(initialDisabled)
   
+  
+  const getUsers = () => {
+    axios.get('https://reqres.in/api/users')
+      .then(res => {
+       setUsers([res.data])
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+
+    const postNewUser = newUser => {
+      axios.post('https://reqres.in/api/users', newUser)
+        .then(res => {
+          setUsers([res.data, ...users])
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        setFormValues(initialValues)
+
+    }
+
+
   const changeInput = (name, value) => {
     setFormValues({
       ...formValues, [name]: value
@@ -34,26 +57,14 @@ function App() {
   }
   const submitForm = () => {
     const newUser = {
-      name: formValues.name.trim(),
+      username: formValues.name.trim(),
       email: formValues.email.trim(),
       password: formValues.password.trim(),
 
     }
+    postNewUser()
   }
-
-  const getUsers = () => {
-    axios.post(`https://reqres.in/api/users`)
-      .then(res => {
-       setUsers([...users, res.data])
-       setFormValues(initialValues)
-       setFormErrors(initialErrors)
-       setDisabled(initialDisabled)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
+  
   useEffect(() => {
     getUsers()
   }, [])
@@ -62,6 +73,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>An App</h1>
       <Form 
         values={formValues}
         submit={submitForm}
@@ -69,6 +81,14 @@ function App() {
         disabled={disabled}
         errors={formErrors}
       />
+
+      {
+        users.map(user => {
+          return(
+            <User key={user.id} user={user} />
+          )
+        })
+      }
 
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function Form(props)   {
-    const { values, submit, change} = props    
+    const { values, submit, change, disabled} = props    
 
     const onSubmit = e => {
         e.preventDefault()
@@ -15,11 +15,12 @@ export default function Form(props)   {
 
     return (
         <form className='form-container' onSubmit={onSubmit}>
+           <h3>sign in</h3>
             <div className='form-inputs'>
                 <label>Name
                     <input name='name' 
                         type='text' 
-                        value={values.name} 
+                        value={values.username} 
                         onChange={onChange} 
                         placeholder='your name..' 
                         maxLength='25'
@@ -39,7 +40,7 @@ export default function Form(props)   {
                         onChange={onChange}
                         placeholder='********'
                         minLength='8' 
-                        requiered /> 
+                        /> 
                 </label><br/>
                 <label>Terms of Service
                     <input name='termsofservice' 
@@ -51,9 +52,7 @@ export default function Form(props)   {
                 </label><br/>
 
                 <label>
-                    <input type='submit' 
-                        onSubmit={onSubmit} 
-                        disabled ={!values.name || !values.email } />
+                    <button disabled ={ disabled }>submit</button>
                 </label>
             </div>
         </form>
