@@ -1,11 +1,12 @@
 import React from 'react'
 
 export default function Form(props)   {
-    const {users, values, submit, change, disabled} = props    
+    const { values, submit, change, disabled} = props    
 
     const onSubmit = e => {
         e.preventDefault()
         submit()
+        
     }
 
     const onChange = e => {
@@ -35,8 +36,9 @@ export default function Form(props)   {
                         />
                 </label><br/>
                 <label>Password
-                    <input name='pasword' 
-                        type='password' 
+                    <input name='password' 
+                        type='password'
+                        value={values.password} 
                         onChange={onChange}
                         placeholder='********'
                         minLength='8' 

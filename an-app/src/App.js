@@ -46,7 +46,7 @@ function App() {
           console.log(err)
         })
         setFormValues(initialValues)
-
+        setUsers([...users, newUser])
     }
 
 
@@ -63,6 +63,7 @@ function App() {
 
     }
     postNewUser(newUser);
+    
   }
   
   useEffect(() => {
