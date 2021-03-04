@@ -18,7 +18,7 @@ export default function Form(props)   {
            <h3>sign in</h3>
             <div className='form-inputs'>
                 <label>Name
-                    <input name='name' 
+                    <input name='username' 
                         type='text' 
                         value={values.username} 
                         onChange={onChange} 
@@ -52,7 +52,7 @@ export default function Form(props)   {
                 </label><br/>
 
                 <label>
-                    <button disabled ={ disabled }>submit</button>
+                    <button type='submit'>submit</button>
                 </label>
             </div>
         </form>
