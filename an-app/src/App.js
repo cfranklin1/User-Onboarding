@@ -57,12 +57,12 @@ function App() {
   }
   const submitForm = () => {
     const newUser = {
-      username: formValues.name.trim(),
+      username: formValues.username.trim(),
       email: formValues.email.trim(),
       password: formValues.password.trim(),
 
     }
-    postNewUser()
+    postNewUser(newUser);
   }
   
   useEffect(() => {
@@ -75,6 +75,7 @@ function App() {
     <div className="App">
       <h1>An App</h1>
       <Form 
+        users={users}
         values={formValues}
         submit={submitForm}
         change={changeInput}
